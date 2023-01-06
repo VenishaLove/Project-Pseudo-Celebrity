@@ -52,14 +52,14 @@ JOIN production
 ON genre.id = production.id;
 
 
-*Here I used a case statement in order to add a temporary column to show the associate award for each production type.*/
+/*Here I used a case statement in order to add a temporary column to show the associate award for each production type.*/
 
 SELECT moviestars.fullname AS actor, genre.genrename AS genre, production.productiontype,
 CASE WHEN productiontype = "television" THEN "emmy" 
-	 WHEN productiontype = "broadway' THEN "tony" 
+	 WHEN productiontype = "broadway" THEN "tony" 
 	 WHEN productiontype = "movie" THEN "oscar"
-ELSE 'other'
-END AS 'associatedaward'
+ELSE "other"
+END AS "associatedaward"
 FROM production
 JOIN genre
 ON production.id = genre.actor_id
