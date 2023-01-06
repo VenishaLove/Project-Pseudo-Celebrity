@@ -2,22 +2,22 @@
 a table for genres showcasing different movie categoties, and a table for 
 production information.*/
 
-CREATE TABLE moviestars (ID INTEGER PRIMARY KEY, fullname TEXT , lastmovie INTEGER);
+CREATE TABLE moviestars (ID INTEGER PRIMARY KEY NOT NULL, fullname VARCHAR(40) NOT NULL , lastmovie INTEGER) NOT NULL;
 
-INSERT INTO moviestars (fullname, lastmovie) VALUES ("Sandra Bullocked", 2019);
-INSERT INTO moviestars (fullname, lastmovie)
+INSERT INTO moviestars (actor, lastmovie) VALUES ("Sandra Bullocked", 2019);
+INSERT INTO moviestars (actor, lastmovie)
 VALUES ("Ben Stillered", 2020);
-INSERT INTO moviestars (fullname, lastmovie)
+INSERT INTO moviestars (actor, lastmovie)
 VALUES ("Michael B. Jordaned", 2022);
 
-CREATE TABLE genre (ID INTEGER PRIMARY KEY, actor_id INTEGER, genrename TEXT, ranking INTEGER);
+CREATE TABLE genre (ID INTEGER PRIMARY KEY NOT NULL, actor_id INTEGER NOT NULL, genrename VARCHAR(40) NOT NULL, ranking INTEGER) NOT NULL;
 
-INSERT INTO genre (genrename, actor_id, ranking) VALUES ("drama", 1, 5);
-INSERT INTO genre (genrename, actor_id, ranking) VALUES ("comedy",2, 2);
-INSERT INTO genre (genrename, actor_id, ranking) VALUES ("action",3, 1);
+INSERT INTO genre (actor_id, genrename, ranking) VALUES (1, "drama", 5);
+INSERT INTO genre (actor_id, genrename, ranking) VALUES (2, "comedy", 2);
+INSERT INTO genre (actor_id, genrename, ranking) VALUES (3, "action", 1);
 
-CREATE TABLE production (id INTEGER PRIMARY KEY, pro_id INTEGER,
-productiontype TEXT, studio TEXT);
+CREATE TABLE production (id INTEGER PRIMARY KEY NOT NULL, pro_id INTEGER NOT NULL,
+productiontype VARCHAR(20) NOT NULL, studio VARCHAR(40) NOT NULL);
 
 INSERT INTO production (pro_id,
 productiontype, studio) VALUES (10, "television", "netflixed");
@@ -28,7 +28,7 @@ productiontype, studio) VALUES (12, "movie", "amazon primed");
 INSERT INTO production (pro_id,
 productiontype, studio) VALUES (13, "music", "def jammed");
 
-SELECT moviestars.fullname, moviestars.lastmovie, genre.genrename, genre.ranking
+SELECT moviestars.actor, moviestars.lastmovie, genre.genrename, genre.ranking
 FROM moviestars
 JOIN genre
 ON moviestars.id = genre.actor_id;
@@ -44,7 +44,7 @@ ON production.id = b.id;
 
 /* Here I was able to join all three tables to show the most comprehesive data about each actor*/
 
-SELECT moviestars.fullname AS actor, moviestars.lastmovie, genre.genrename AS moviegenre, genre.ranking AS genrerank, production.productiontype
+SELECT moviestars.actor, moviestars.lastmovie, genre.genrename AS moviegenre, genre.ranking AS genrerank, production.productiontype
 FROM moviestars
 JOIN genre
 ON moviestars.id = genre.actor_id
@@ -54,7 +54,7 @@ ON genre.id = production.id;
 
 /*Here I used a case statement in order to add a temporary column to show the associate award for each production type.*/
 
-SELECT moviestars.fullname AS actor, genre.genrename AS genre, production.productiontype,
+SELECT moviestars.actor, genre.genrename AS genre, production.productiontype,
 CASE WHEN productiontype = "television" THEN "emmy" 
 	 WHEN productiontype = "broadway" THEN "tony" 
 	 WHEN productiontype = "movie" THEN "oscar"
